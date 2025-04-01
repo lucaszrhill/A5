@@ -66,7 +66,7 @@ void displayStatus() {
         printf("%d ", Available[i]);
     }
     printf("\n");
-
+    displayMaximumResources();
     printf("Allocated Resources:\n");
     for (int t = 0; t < THREAD_COUNT; t++) {
         for (int r = 0; r < RESOURCE_TYPES; r++) {
@@ -129,7 +129,6 @@ bool isSafeState(int safeSequence[]) {
 
 // Function to request resources
 void requestResources(int customerID, int request[]) {
-    printf("Customer/Thread %d is requesting resources...\n", customerID);
 
     // Validate request
     for (int i = 0; i < RESOURCE_TYPES; i++) {
@@ -177,26 +176,26 @@ void runSafeSequence() {
     for (int i = 0; i < THREAD_COUNT; i++) {
         int customerID = safeSequence[i];
         printf("--> Customer/Thread %d\n", customerID);
-        printf("Allocated resources: ");
+        printf("    Allocated resources: ");
         for (int r = 0; r < RESOURCE_TYPES; r++) {
             printf("%d ", Allocation[customerID][r]);
         }
-        printf("\nNeeded: ");
+        printf("\n    Needed: ");
         for (int r = 0; r < RESOURCE_TYPES; r++) {
             printf("%d ", Need[customerID][r]);
         }
-        printf("\nAvailable: ");
+        printf("\n    Available: ");
         for (int r = 0; r < RESOURCE_TYPES; r++) {
             printf("%d ", Available[r]);
         }
-        printf("\nThread has started\nThread has finished\nThread is releasing resources\n");
+        printf("\n    Thread has started\n    Thread has finished\n    Thread is releasing resources\n");
 
         for (int r = 0; r < RESOURCE_TYPES; r++) {
             Available[r] += Allocation[customerID][r];
             Allocation[customerID][r] = 0;
         }
 
-        printf("New Available: ");
+        printf("    New Available: ");
         for (int r = 0; r < RESOURCE_TYPES; r++) {
             printf("%d ", Available[r]);
         }
